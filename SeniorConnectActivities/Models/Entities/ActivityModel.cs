@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.TagHelpers;
 
-namespace SeniorConnectActivities.Models
+namespace SeniorConnectActivities.Models.Entities
 {
     public class ActivityModel
     {
         public int Id { get; set; }
-        public string Title { get; set; }    
+        public string Title { get; set; }
         public string Description { get; set; }
         public string Location { get; set; }
         public DateTime Start { get; set; }
@@ -16,6 +16,6 @@ namespace SeniorConnectActivities.Models
         public DateTime LastUpdated { get; set; }
         public string Url { get; set; }
 
-        
+
     }
 }

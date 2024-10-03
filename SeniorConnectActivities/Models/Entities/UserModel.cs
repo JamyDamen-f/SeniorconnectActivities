@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SeniorConnectActivities.Models
+namespace SeniorConnectActivities.Models.Entities
 {
     public class UserModel
     {
@@ -15,9 +15,9 @@ namespace SeniorConnectActivities.Models
         public bool Active { get; set; }
         public int GoogleId { get; set; }
         public int FacebookId { get; set; }
-        public string FirstName { get; set; } 
-        public string Affix { get; set; } 
-        public string LastName { get; set; } 
+        public string FirstName { get; set; }
+        public string Affix { get; set; }
+        public string LastName { get; set; }
         public string Address { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
@@ -30,7 +30,7 @@ namespace SeniorConnectActivities.Models
         public DateTime LastUpdated { get; set; }
 
 
-        public UserModel() 
+        public UserModel()
         {
             RolId = new RolModel();
         }

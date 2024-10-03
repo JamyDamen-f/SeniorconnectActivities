@@ -1,4 +1,4 @@
-﻿namespace SeniorConnectActivities.Models
+﻿namespace SeniorConnectActivities.Models.Entities
 {
     public class RolModel
     {

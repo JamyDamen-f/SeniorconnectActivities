@@ -1,4 +1,4 @@
-﻿namespace SeniorConnectActivities.Models
+﻿namespace SeniorConnectActivities.Models.Entities
 {
 
     public class ActivityUserModel
@@ -7,7 +7,7 @@
         public ActivityModel ActivityId { get; set; }
         public bool IsCreator { get; set; }
 
-        public ActivityUserModel() 
+        public ActivityUserModel()
         {
             UserId = new UserModel();
             ActivityId = new ActivityModel();
