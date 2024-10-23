@@ -1,7 +1,14 @@
+using MySql.Data.MySqlClient;
+using SeniorConnectActivities.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register ApplicationDbContext with a connection string
+string connectionString = builder.Configuration.GetConnectionString("SeniorConnect");
+builder.Services.AddSingleton(new ApplicationDbContext(connectionString));
 
 var app = builder.Build();
 
