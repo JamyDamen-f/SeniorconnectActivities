@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Activities";
+}
+@model List<SeniorConnectActivities.Models.Entities.ActivityModel>
+
+<div class="mt-5">
+    <h1>Activities</h1>
+</div>
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Bescrijving</th>
+                <th>Locatie</th>
+                <th>Start</th>
+                <th>Eind</th>
+                <th>Max aantal personen</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var activity in Model)
+            {
+                <tr>
+                    <td>@activity.Title</td>
+                    <td>@activity.Description</td>
+                    <td>@activity.Location</td>
+                    <td>@activity.Start</td>
+                    <td>@activity.End</td>
+                    <td>@activity.MaxParticipants</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No users found.</p>
+}
+
+<div class="justify-content-start">
+    <button class="btn btn-dark me-md-2">Add</button>
+    <button class="btn btn-dark me-md-2">Edit</button>
+</div>
+
+<div class="d-md-flex justify-content-end">
+    <button class="btn btn-dark me-md-2">Delete</button>
+</div>

@@ -1,29 +1,21 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
-using SeniorConnectActivities.Models;
 using SeniorConnectActivities.Models.Entities;
-using System.Diagnostics;
 
 namespace SeniorConnectActivities.Controllers
 {
-    public class HomeController(MySqlConnection mySqlConnection) : Controller
+    public class ActivitiesController(MySqlConnection mySqlConnection) : Controller
     {
-        public IActionResult Index()
+        /*public IActionResult Index()
         {
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        }*/
 
         /// <summary>
         /// Makes a dbconnection and get all activities
         /// </summary>
         /// <returns>A view with a list of activities</returns>
-        /*public async Task<IActionResult> Activities()
+        public async Task<IActionResult> Index()
         {
             try
             {
@@ -58,6 +50,6 @@ namespace SeniorConnectActivities.Controllers
             {
                 throw;
             }
-        }*/
+        }
     }
 }
