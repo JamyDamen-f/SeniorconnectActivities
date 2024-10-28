@@ -5,34 +5,35 @@
 
 
 <div class="mt-5">
-    <h1>Add Activivtie</h1>
+    <h1>Toevoegen van activiteit</h1>
 </div>
 
 <!-- Form to addd a activity -->
-<form class="bg-light mt-3 p-3 col-5 rounded-2">
+<form method="post" class="bg-light mt-3 p-3 col-5 rounded-2">
+
     <div>
-        <label class="form-label">Title</label>
-        <input type="text" class="form-control" asp-for="Title"/>
+        <label class="form-label">Titel*</label>
+        <input type="text" class="form-control" asp-for="Title" required/>
     </div>
 
     <div class="mt-3">
-        <label class="form-label">Locatie</label>
-        <input type="text" class="form-control" asp-for="Location" />
+        <label class="form-label">Locatie*</label>
+        <input type="text" class="form-control" asp-for="Location" required/>
     </div>
 
     <div class="mt-3">
-        <label class="form-label">Start tijd</label>
-        <input type="datetime" class="form-control" asp-for="Start" />
+        <label class="form-label">Start tijd*</label>
+        <input type="datetime" class="form-control" asp-for="Start" required/>
     </div>
 
     <div class="mt-3">
-        <label class="form-label">Eind tijd</label>
-        <input type="datetime" class="form-control" asp-for="End" />
+        <label class="form-label">Eind tijd*</label>
+        <input type="datetime" class="form-control" asp-for="End" required/>
     </div>
 
     <div class="mt-3">
-        <label class="form-label">Max aantal deelnemers</label>
-        <input type="number" class="form-control" asp-for="MaxParticipants"/>
+        <label class="form-label">Max aantal deelnemers*</label>
+        <input type="number" class="form-control" asp-for="MaxParticipants" required/>
     </div>
 
     <div class="mt-3">

@@ -20,7 +20,7 @@ namespace SeniorConnectActivities.Controllers
 
                 await mySqlConnection.OpenAsync();
 
-                var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants FROM seniorconnectdb.activity", mySqlConnection);
+                var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants FROM activity", mySqlConnection);
                 var reader = await command.ExecuteReaderAsync();
 
                 while (await reader.ReadAsync())
@@ -47,8 +47,18 @@ namespace SeniorConnectActivities.Controllers
             }
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(ActivityModel activity)
+        {
+            var Activities = new ActivityModel();
+
+
             return View();
         }
     }
