@@ -6,13 +6,8 @@ namespace SeniorConnectActivities.Controllers
 {
     public class ActivitiesController(MySqlConnection mySqlConnection) : Controller
     {
-        /*public IActionResult Index()
-        {
-            return View();
-        }*/
-
         /// <summary>
-        /// Makes a dbconnection and get all activities
+        /// Get all Activities
         /// </summary>
         /// <returns>A view with a list of activities</returns>
         public async Task<IActionResult> Index()
@@ -50,6 +45,11 @@ namespace SeniorConnectActivities.Controllers
             {
                 throw;
             }
+        }
+
+        public IActionResult Add()
+        {
+            return View();
         }
     }
 }

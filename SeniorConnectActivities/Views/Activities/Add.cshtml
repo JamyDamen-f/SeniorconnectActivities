@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Add - Activity";
+}
+@model SeniorConnectActivities.Models.AddActivitiesViewModel
+
+
+<div class="mt-5">
+    <h1>Add Activivtie</h1>
+</div>
+
+<!-- Form to addd a activity -->
+<form class="bg-light mt-3 p-3 col-5 rounded-2">
+    <div>
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" asp-for="Title"/>
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Locatie</label>
+        <input type="text" class="form-control" asp-for="Location" />
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Start tijd</label>
+        <input type="datetime" class="form-control" asp-for="Start" />
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Eind tijd</label>
+        <input type="datetime" class="form-control" asp-for="End" />
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Max aantal deelnemers</label>
+        <input type="number" class="form-control" asp-for="MaxParticipants"/>
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Bescrijving</label>
+        <input type="text" class="form-control" asp-for="Description" />
+    </div>
+
+    <div class="mt-3 d-md-flex justify-content-center">
+        <button type="submit" class="btn btn-dark col-12">Opslaan</button>
+    </div>
+    
+</form>
