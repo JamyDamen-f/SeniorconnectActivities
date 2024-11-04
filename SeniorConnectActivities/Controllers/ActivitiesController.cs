@@ -14,21 +14,20 @@ namespace SeniorConnectActivities.Controllers
         {
             try
             {
+                // Create a list of activities
                 List<ActivityModel> Activities = new List<ActivityModel>();
-
-                // Fetch data from the database using ApplicationDbContext's GetConnection method
-
+                // Opens db connection
                 await mySqlConnection.OpenAsync();
-
+                // Sql command and execute the command
                 var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants FROM activity", mySqlConnection);
                 var reader = await command.ExecuteReaderAsync();
-
+                // Fill the list with activities
                 while (await reader.ReadAsync())
                 {
                     var activity = new ActivityModel();
                     {
                         activity.Title = reader.GetString(0);
-                        activity.Description = reader.GetString(1);
+                        activity.Description = reader.IsDBNull(1) ? null : reader.GetString(1);
                         activity.Location = reader.GetString(2);
                         activity.Start = reader.GetDateTime(3);
                         activity.End = reader.GetDateTime(4);
@@ -36,6 +35,7 @@ namespace SeniorConnectActivities.Controllers
                     };
                     Activities.Add(activity);
                 }
+                // Close db connection
                 await mySqlConnection.CloseAsync();
 
                 //Pass the list of activities to the view
@@ -56,10 +56,50 @@ namespace SeniorConnectActivities.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ActivityModel activity)
         {
-            var Activities = new ActivityModel();
+            // Sql command
+            var command = new MySqlCommand("INSERT INTO activity (title, description, location, start, end, max_participants, created_at, updated_at, image_url)\r\n" +
+                                           "VALUES (@title, @description, @location, @start, @end, @max_participants, @created_at, @updated_at, @image_url)", mySqlConnection);
+            // Open connection
+            mySqlConnection.OpenAsync();
+            // Make a new activitie
 
+            var AddActivitie = new ActivityModel
+            {
+                Title = activity.Title,
+                Description = activity.Description,
+                Location = activity.Location,
+                Start = activity.Start,
+                End = activity.End,
+                MaxParticipants = activity.MaxParticipants,
+                Created = DateTime.Now,
+                LastUpdated = DateTime.Now,
+            };
 
-            return View();
+            // Setting up command parameters
+            command.Parameters.AddWithValue("@title", AddActivitie.Title);
+            command.Parameters.AddWithValue("@description", AddActivitie.Description ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@location", AddActivitie.Location);
+            command.Parameters.AddWithValue("@start", AddActivitie.Start);
+            command.Parameters.AddWithValue("@end", AddActivitie.End);
+            command.Parameters.AddWithValue("@max_participants", AddActivitie.MaxParticipants);
+            command.Parameters.AddWithValue("@created_at", AddActivitie.Created);
+            command.Parameters.AddWithValue("@updated_at", AddActivitie.LastUpdated);
+            command.Parameters.AddWithValue("@image_url", AddActivitie.Url ?? (object)DBNull.Value);
+
+            // Execute the command
+            await command.ExecuteNonQueryAsync();
+
+            // Close connection
+            await mySqlConnection.CloseAsync();
+
+            if (!ModelState.IsValid)
+            {
+                return View(activity);
+            }
+            // Return view
+            return RedirectToAction("Index", "Activities");
         }
+
     }
 }
+

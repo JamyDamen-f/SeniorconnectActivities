@@ -9,7 +9,7 @@
 </div>
 
 <!-- Form to addd a activity -->
-<form method="post" class="bg-light mt-3 p-3 col-5 rounded-2">
+@* <form method="post" class="bg-light mt-3 p-3 col-5 rounded-2">
 
     <div>
         <label class="form-label">Titel*</label>
@@ -45,4 +45,49 @@
         <button type="submit" class="btn btn-dark col-12">Opslaan</button>
     </div>
     
+</form>*@
+<form method="post" class="bg-light mt-3 p-3 col-5 rounded-2">
+    @Html.AntiForgeryToken()
+
+    <div>
+        <label class="form-label" asp-for="Title">Titel</label>
+        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", required = "required" })
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label" asp-for="Location">Locatie</label>
+        @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(m => m.Location, new { @class = "form-control", required = "required" })
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label" asp-for="Start">Start tijd</label>
+        @Html.ValidationMessageFor(m => m.Start, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(m => m.Start, new { @class = "form-control", type = "datetime-local", required = "required" })
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label" asp-for="End">Eind tijd</label>
+        @Html.ValidationMessageFor(m => m.End, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(m => m.End, new { @class = "form-control", type = "datetime-local", required = "required" })
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label" asp-for="MaxParticipants">Max aantal deelnemers</label>
+        @Html.ValidationMessageFor(m => m.MaxParticipants, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(m => m.MaxParticipants, new { @class = "form-control", type = "number", required = "required" })
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label" asp-for="Description">Bescrijving</label>
+        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+    </div>
+
+    <div class="mt-3 d-md-flex justify-content-center">
+        <button type="submit" class="btn btn-dark col-12">Opslaan</button>
+    </div>
 </form>
+
+

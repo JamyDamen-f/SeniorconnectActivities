@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.TagHelpers;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SeniorConnectActivities.Models.Entities
 {
@@ -12,7 +12,6 @@ namespace SeniorConnectActivities.Models.Entities
         public DateTime End { get; set; }
         public int MaxParticipants { get; set; }
         public DateTime Created { get; set; }
-        public bool IsActive { get; set; }
         public DateTime LastUpdated { get; set; }
         public string Url { get; set; }
 
