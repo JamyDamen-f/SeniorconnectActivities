@@ -18,6 +18,7 @@ namespace SeniorConnectActivities.Controllers
         /// Get all Activities
         /// </summary>
         /// <returns>A view with a list of activities</returns>
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             try
@@ -31,19 +32,23 @@ namespace SeniorConnectActivities.Controllers
                     await connection.OpenAsync();
                 }
                 // Sql command and execute the command
-                var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants FROM activity", connection);
+                var command = new MySqlCommand("SELECT * FROM activity", connection);
                 var reader = await command.ExecuteReaderAsync();
                 // Fill the list with activities
                 while (await reader.ReadAsync())
                 {
                     var activity = new ActivityModel();
                     {
-                        activity.Title = reader.GetString(0);
-                        activity.Description = reader.IsDBNull(1) ? null : reader.GetString(1);
-                        activity.Location = reader.GetString(2);
-                        activity.Start = reader.GetDateTime(3);
-                        activity.End = reader.GetDateTime(4);
-                        activity.MaxParticipants = reader.GetInt32(5);
+                        activity.Id = reader.GetInt32(0);
+                        activity.Title = reader.GetString(1);
+                        activity.Description = reader.IsDBNull(2) ? null : reader.GetString(2);
+                        activity.Location = reader.GetString(3);
+                        activity.Start = reader.GetDateTime(4);
+                        activity.End = reader.GetDateTime(5);
+                        activity.MaxParticipants = reader.GetInt32(6);
+                        activity.Created = reader.GetDateTime(7);
+                        activity.LastUpdated = reader.GetDateTime(8);
+                        activity.Url = reader.IsDBNull(9) ? null : reader.GetString(9);
                     };
                     Activities.Add(activity);
                 }
@@ -76,7 +81,6 @@ namespace SeniorConnectActivities.Controllers
         /// <param name="activity"></param>
         /// <returns>A view with the added Activity</returns>
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEntity(ActivityModel activity)
         {
             if (!ModelState.IsValid)
@@ -131,10 +135,9 @@ namespace SeniorConnectActivities.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> EntityDetails(ActivityModel activity)
+        [HttpGet]
+        public async Task<IActionResult> EntityDetails(int id)
         {
-            // Create activity
-            ActivityModel activityEntity = new ActivityModel();
             // Opens db connection
             var connection = _dbConnection.GetConnection();
             if (connection.State != ConnectionState.Open)
@@ -142,20 +145,31 @@ namespace SeniorConnectActivities.Controllers
                 await connection.OpenAsync();
             }
             // Sql command and execute the command
-            var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants, created_at, updated_at FROM activity WHERE id = @id", connection);
-            var reader = await command.ExecuteReaderAsync();
-
+            var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants, created_at, updated_at, image_url FROM activity WHERE id = @id", connection);
             // Command parameters
-            command.Parameters.AddWithValue("@id", activity.Id);
+            command.Parameters.AddWithValue("@id", id);
+            var reader = await command.ExecuteReaderAsync();
+            reader.ReadAsync();
 
-            // Execute the command
-            await command.ExecuteNonQueryAsync();
+            // Fill the activity with the id from the list
+            var activity = new ActivityModel();
+            activity.Title = reader.GetString(0);
+            activity.Description = reader.IsDBNull(1) ? null : reader.GetString(1);
+            activity.Location = reader.GetString(2);
+            activity.Start = reader.GetDateTime(3);
+            activity.End = reader.GetDateTime(4);
+            activity.MaxParticipants = reader.GetInt32(5);
+            activity.Created = reader.GetDateTime(6);
+            activity.LastUpdated = reader.GetDateTime(7);
+            activity.Url = reader.IsDBNull(8) ? null : reader.GetString(8);
 
-            // Close connection
+
+            // Close reading and the db connection
+            await reader.CloseAsync();
             await connection.CloseAsync();
 
             // Return view 
-            return View("Details", "Activities");
+            return RedirectToAction("Details", "Activities");
         }
     }
 }

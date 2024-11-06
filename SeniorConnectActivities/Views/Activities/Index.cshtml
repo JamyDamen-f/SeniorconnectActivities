@@ -28,7 +28,7 @@
                     <td>@activity.End</td>
                     <td>
                         <a class="text-dark" asp-action="EditEntity" asp-route-id="@activity.Id">Aanpassen</a> |
-                        <a class="text-dark" asp-action="DetailEntity" asp-route-id="@activity.Id">Details</a>
+                        <a class="text-dark" asp-controller="Activities" asp-action="EntityDetails" asp-route-id="@activity.Id">Details</a>
                     </td>
                 </tr>
             }
