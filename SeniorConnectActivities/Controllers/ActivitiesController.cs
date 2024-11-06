@@ -1,11 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using SeniorConnectActivities.Models.Entities;
-
+using SeniorConnectActivitiesCore;
+using System.Data;
 namespace SeniorConnectActivities.Controllers
 {
-    public class ActivitiesController(MySqlConnection mySqlConnection) : Controller
+    public class ActivitiesController : Controller
     {
+        private readonly DbConnection _dbConnection;
+
+        public ActivitiesController(DbConnection dbConnection)
+        {
+            _dbConnection = dbConnection;
+        }
+
         /// <summary>
         /// Get all Activities
         /// </summary>
@@ -17,9 +25,13 @@ namespace SeniorConnectActivities.Controllers
                 // Create a list of activities
                 List<ActivityModel> Activities = new List<ActivityModel>();
                 // Opens db connection
-                await mySqlConnection.OpenAsync();
+                var connection = _dbConnection.GetConnection();
+                if (connection.State != ConnectionState.Open)
+                {
+                    await connection.OpenAsync();
+                }
                 // Sql command and execute the command
-                var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants FROM activity", mySqlConnection);
+                var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants FROM activity", connection);
                 var reader = await command.ExecuteReaderAsync();
                 // Fill the list with activities
                 while (await reader.ReadAsync())
@@ -35,8 +47,9 @@ namespace SeniorConnectActivities.Controllers
                     };
                     Activities.Add(activity);
                 }
-                // Close db connection
-                await mySqlConnection.CloseAsync();
+                // Close reading and the db connection
+                await reader.CloseAsync();
+                await connection.CloseAsync();
 
                 //Pass the list of activities to the view
                 return View(Activities);
@@ -56,13 +69,16 @@ namespace SeniorConnectActivities.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ActivityModel activity)
         {
+            // Open connection
+            var connection = _dbConnection.GetConnection();
+            if (connection.State != ConnectionState.Open)
+            {
+                await connection.OpenAsync();
+            }
             // Sql command
             var command = new MySqlCommand("INSERT INTO activity (title, description, location, start, end, max_participants, created_at, updated_at, image_url)\r\n" +
-                                           "VALUES (@title, @description, @location, @start, @end, @max_participants, @created_at, @updated_at, @image_url)", mySqlConnection);
-            // Open connection
-            mySqlConnection.OpenAsync();
+                                           "VALUES (@title, @description, @location, @start, @end, @max_participants, @created_at, @updated_at, @image_url)", connection);
             // Make a new activitie
-
             var AddActivitie = new ActivityModel
             {
                 Title = activity.Title,
@@ -90,7 +106,7 @@ namespace SeniorConnectActivities.Controllers
             await command.ExecuteNonQueryAsync();
 
             // Close connection
-            await mySqlConnection.CloseAsync();
+            await connection.CloseAsync();
 
             if (!ModelState.IsValid)
             {

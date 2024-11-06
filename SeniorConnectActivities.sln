@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeniorConnectActivities", "SeniorConnectActivities\SeniorConnectActivities.csproj", "{2931E467-3EB7-47E1-A2F2-528B22CB6C13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeniorConnectActivities", "SeniorConnectActivities\SeniorConnectActivities.csproj", "{2931E467-3EB7-47E1-A2F2-528B22CB6C13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeniorConnectActivitiesCore", "SeniorConnectActivitiesCore\SeniorConnectActivitiesCore.csproj", "{6A335AF7-22C6-4560-A979-1A2C5775DA03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2931E467-3EB7-47E1-A2F2-528B22CB6C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2931E467-3EB7-47E1-A2F2-528B22CB6C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2931E467-3EB7-47E1-A2F2-528B22CB6C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A335AF7-22C6-4560-A979-1A2C5775DA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A335AF7-22C6-4560-A979-1A2C5775DA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A335AF7-22C6-4560-A979-1A2C5775DA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A335AF7-22C6-4560-A979-1A2C5775DA03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

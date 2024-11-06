@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace SeniorConnectActivities.Controllers
 {
-    public class HomeController(MySqlConnection mySqlConnection) : Controller
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {
