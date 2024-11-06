@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 
 // Register ApplicationDbContext with a connection string
 string connectionString = builder.Configuration.GetConnectionString("SeniorConnect");
-builder.Services.AddTransient<SeniorConnectActivitiesCore.DbConnection>( _ => new DbConnection(connectionString));
+builder.Services.AddTransient<SeniorConnectActivitiesCore.DbContext>( _ => new DbContext(connectionString));
 
 var app = builder.Build();
 

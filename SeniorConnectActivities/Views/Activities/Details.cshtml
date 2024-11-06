@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Details - Activity";
+}
+@model SeniorConnectActivities.Models.Entities.ActivityModel
+
+<div class="mt-5">
+    <h1>Details van activiteit</h1>
+</div>
+
+@if (Model != null)
+{
+    <h3>@Model.Title</h3>
+}
+else
+{
+    <p>Er is geen activiteit bekend.</p>
+}

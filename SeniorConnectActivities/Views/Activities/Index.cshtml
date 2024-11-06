@@ -12,11 +12,10 @@
         <thead>
             <tr>
                 <th>Titel</th>
-                <th>Bescrijving</th>
                 <th>Locatie</th>
                 <th>Start</th>
                 <th>Eind</th>
-                <th>Max aantal personen</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,11 +23,13 @@
             {
                 <tr>
                     <td>@activity.Title</td>
-                    <td>@activity.Description</td>
                     <td>@activity.Location</td>
                     <td>@activity.Start</td>
                     <td>@activity.End</td>
-                    <td>@activity.MaxParticipants</td>
+                    <td>
+                        <a class="text-dark" asp-action="EditEntity" asp-route-id="@activity.Id">Aanpassen</a> |
+                        <a class="text-dark" asp-action="DetailEntity" asp-route-id="@activity.Id">Details</a>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -39,11 +40,7 @@ else
     <p>Geen activiteiten gevonden.</p>
 }
 
-<div class="d-md-flex justify-content-start">
+<div class="d-md-flex justify-content-between">
     <a class="btn btn-dark me-md-2" asp-controller="Activities" asp-action="Add">Toevoegen</a>
-    <a class="btn btn-dark me-md-2">Aanpassen</a>
-</div>
-
-<div class="d-md-flex justify-content-end">
-    <a class="btn btn-dark me-md-2">Verwijderen</a>
+    <a class="btn btn-dark ">Verwijderen</a>
 </div>

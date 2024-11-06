@@ -7,9 +7,9 @@ namespace SeniorConnectActivities.Controllers
 {
     public class ActivitiesController : Controller
     {
-        private readonly DbConnection _dbConnection;
+        private readonly DbContext _dbConnection;
 
-        public ActivitiesController(DbConnection dbConnection)
+        public ActivitiesController(DbContext dbConnection)
         {
             _dbConnection = dbConnection;
         }
@@ -60,47 +60,93 @@ namespace SeniorConnectActivities.Controllers
             }
         }
 
+        /// <summary>
+        /// View page with the form to add a activityEntity
+        /// </summary>
+        /// <returns>View with a form</returns>
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
+        /// <summary>
+        /// Adds a activityEntity
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <returns>A view with the added Activity</returns>
         [HttpPost]
-        public async Task<IActionResult> Add(ActivityModel activity)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddEntity(ActivityModel activity)
         {
-            // Open connection
+            if (!ModelState.IsValid)
+            {
+                // Open connection
+                var connection = _dbConnection.GetConnection();
+                if (connection.State != ConnectionState.Open)
+                {
+                    await connection.OpenAsync();
+                }
+                // Sql command
+                var command = new MySqlCommand("INSERT INTO activity (title, description, location, start, end, max_participants, created_at, updated_at, image_url)\r\n" +
+                                               "VALUES (@title, @description, @location, @start, @end, @max_participants, @created_at, @updated_at, @image_url)", connection);
+
+                // Make a new activitie
+                var AddActivitie = new ActivityModel
+                {
+                    Title = activity.Title,
+                    Description = activity.Description,
+                    Location = activity.Location,
+                    Start = activity.Start,
+                    End = activity.End,
+                    MaxParticipants = activity.MaxParticipants,
+                    Created = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                };
+
+
+                // Setting up command parameters
+                command.Parameters.AddWithValue("@title", AddActivitie.Title);
+                command.Parameters.AddWithValue("@description", AddActivitie.Description ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("@location", AddActivitie.Location);
+                command.Parameters.AddWithValue("@start", AddActivitie.Start);
+                command.Parameters.AddWithValue("@end", AddActivitie.End);
+                command.Parameters.AddWithValue("@max_participants", AddActivitie.MaxParticipants);
+                command.Parameters.AddWithValue("@created_at", AddActivitie.Created);
+                command.Parameters.AddWithValue("@updated_at", AddActivitie.LastUpdated);
+                command.Parameters.AddWithValue("@image_url", AddActivitie.Url ?? (object)DBNull.Value);
+
+                // Execute the command
+                await command.ExecuteNonQueryAsync();
+
+                // Close connection
+                await connection.CloseAsync();
+            }
+            // Return view
+            return RedirectToAction("Index", "Activities");
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IActionResult> EntityDetails(ActivityModel activity)
+        {
+            // Create activity
+            ActivityModel activityEntity = new ActivityModel();
+            // Opens db connection
             var connection = _dbConnection.GetConnection();
             if (connection.State != ConnectionState.Open)
             {
                 await connection.OpenAsync();
             }
-            // Sql command
-            var command = new MySqlCommand("INSERT INTO activity (title, description, location, start, end, max_participants, created_at, updated_at, image_url)\r\n" +
-                                           "VALUES (@title, @description, @location, @start, @end, @max_participants, @created_at, @updated_at, @image_url)", connection);
-            // Make a new activitie
-            var AddActivitie = new ActivityModel
-            {
-                Title = activity.Title,
-                Description = activity.Description,
-                Location = activity.Location,
-                Start = activity.Start,
-                End = activity.End,
-                MaxParticipants = activity.MaxParticipants,
-                Created = DateTime.Now,
-                LastUpdated = DateTime.Now,
-            };
+            // Sql command and execute the command
+            var command = new MySqlCommand("SELECT title, description, location, start, end, max_participants, created_at, updated_at FROM activity WHERE id = @id", connection);
+            var reader = await command.ExecuteReaderAsync();
 
-            // Setting up command parameters
-            command.Parameters.AddWithValue("@title", AddActivitie.Title);
-            command.Parameters.AddWithValue("@description", AddActivitie.Description ?? (object)DBNull.Value);
-            command.Parameters.AddWithValue("@location", AddActivitie.Location);
-            command.Parameters.AddWithValue("@start", AddActivitie.Start);
-            command.Parameters.AddWithValue("@end", AddActivitie.End);
-            command.Parameters.AddWithValue("@max_participants", AddActivitie.MaxParticipants);
-            command.Parameters.AddWithValue("@created_at", AddActivitie.Created);
-            command.Parameters.AddWithValue("@updated_at", AddActivitie.LastUpdated);
-            command.Parameters.AddWithValue("@image_url", AddActivitie.Url ?? (object)DBNull.Value);
+            // Command parameters
+            command.Parameters.AddWithValue("@id", activity.Id);
 
             // Execute the command
             await command.ExecuteNonQueryAsync();
@@ -108,14 +154,9 @@ namespace SeniorConnectActivities.Controllers
             // Close connection
             await connection.CloseAsync();
 
-            if (!ModelState.IsValid)
-            {
-                return View(activity);
-            }
-            // Return view
-            return RedirectToAction("Index", "Activities");
+            // Return view 
+            return View("Details", "Activities");
         }
-
     }
 }
 

@@ -2,11 +2,11 @@
 
 namespace SeniorConnectActivitiesCore
 {
-    public class DbConnection
+    public class DbContext
     {
         private readonly string _connectionString;
 
-        public DbConnection(string connectionString)
+        public DbContext(string connectionString)
         {
             _connectionString = connectionString;
         }
