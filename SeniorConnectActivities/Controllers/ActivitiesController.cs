@@ -131,12 +131,13 @@ namespace SeniorConnectActivities.Controllers
 
         }
 
+
         /// <summary>
-        /// 
+        /// Get the entity that is selected in the view
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returns the details page with the selected entity</returns>
         [HttpGet]
-        public async Task<IActionResult> EntityDetails(int id)
+        public async Task<IActionResult> Details(int id)
         {
             // Opens db connection
             var connection = _dbConnection.GetConnection();
@@ -169,7 +170,7 @@ namespace SeniorConnectActivities.Controllers
             await connection.CloseAsync();
 
             // Return view 
-            return RedirectToAction("Details", "Activities");
+            return View("Details", activity);
         }
     }
 }
