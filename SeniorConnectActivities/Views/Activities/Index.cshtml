@@ -27,8 +27,9 @@
                     <td>@activity.Start</td>
                     <td>@activity.End</td>
                     <td>
-                        <a class="text-dark" asp-controller="Activities" asp-action="Edit" asp-route-id="@activity.Id">Aanpassen</a> |
-                        <a class="text-dark" asp-controller="Activities" asp-action="Details" asp-route-id="@activity.Id">Details</a>
+                        <a class="text-dark" asp-controller="Activities" asp-action="CreateEditEntity" asp-route-id="@activity.Id">Aanpassen</a> |
+                        <a class="text-dark" asp-controller="Activities" asp-action="DetailsEntity" asp-route-id="@activity.Id">Details</a> |
+                        <a class="text-dark" asp-controller="Activities" asp-action="DeleteEntity" asp-route-id="@activity.Id">Verwijderen</a>
                     </td>
                 </tr>
             }
@@ -40,7 +41,6 @@ else
     <p>Geen activiteiten gevonden.</p>
 }
 
-<div class="d-md-flex justify-content-between">
-    <a class="btn btn-dark me-md-2" asp-controller="Activities" asp-action="Add">Toevoegen</a>
-    <a class="btn btn-dark ">Verwijderen</a>
+<div class="d-md-flex justify-content-end">
+    <a class="btn btn-dark me-md-2" asp-controller="Activities" asp-action="CreateEditEntity">Toevoegen</a>
 </div>
