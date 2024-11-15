@@ -15,38 +15,38 @@
             <input type="hidden" asp-for="Id" value="@Model?.Id" />
         <div class="form-group">
             <label class="form-label text-light">Titel</label>
+            <span class="text-danger" asp-validation-for="Title"></span>
             <input type="text" asp-for="Title" class="form-control" value="@Model?.Title" />
-            <span class="text-danger" id="TitleError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Locatie</label>
+            <span class="text-danger" asp-validation-for="Location"></span>
             <input type="text" asp-for="Location" class="form-control" value="@Model?.Location" />
-            <span class="text-danger" id="LocationError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Start</label>
+            <span class="text-danger" asp-validation-for="Start"></span>
             <input type="datetime-local" asp-for="Start" class="form-control" value="@Model?.Start.ToString("yyyy-MM-ddTHH:mm")" />
-            <span class="text-danger" id="StartError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Eind</label>
+            <span class="text-danger" asp-validation-for="End"></span>
             <input type="datetime-local" asp-for="End" class="form-control" value="@Model?.End.ToString("yyyy-MM-ddTHH:mm")" />
-            <span class="text-danger" id="EndError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Aantal personen</label>
+            <span class="text-danger" asp-validation-for="MaxParticipants"></span>
             <input type="number" asp-for="MaxParticipants" class="form-control" value="@Model?.MaxParticipants" />
-            <span class="text-danger" id="MaxParticipantsError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Bescrijving</label>
+            <span class="text-danger" asp-validation-for="Description"></span>
             <textarea asp-for="Description" class="form-control" rows="4" value="@Model?.Description"></textarea>
-            <span class="text-danger" id="DescriptionError"></span>
         </div>
 
         <button type="submit" class="btn btn-light col-12 mt-3">Opslaan</button>
@@ -57,38 +57,38 @@ else
     <form method="post" asp-controller="Activities" asp-action="AddEntity" class="bg-dark mt-3 p-5 col-5 rounded-2">
         <div class="form-group">
             <label class="form-label text-light">Titel</label>
+            <span class="text-danger" asp-validation-for="Title"></span>
             <input type="text" asp-for="Title" class="form-control"/>
-            <span class="text-danger" id="TitleError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Locatie</label>
+            <span class="text-danger" asp-validation-for="Location"></span>
             <input type="text" asp-for="Location" class="form-control"/>
-            <span class="text-danger" id="LocationError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Start</label>
+            <span class="text-danger" asp-validation-for="Start"></span>
             <input type="datetime-local" asp-for="Start" class="form-control" placeholder="00/00/0000 12:00" />
-            <span class="text-danger" id="StartError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Eind</label>
+            <span class="text-danger" asp-validation-for="End"></span>
             <input type="datetime-local" asp-for="End" class="form-control" placeholder="00/00/0000 12:00" />
-            <span class="text-danger" id="EndError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Aantal personen</label>
+            <span class="text-danger" asp-validation-for="MaxParticipants"></span>
             <input type="number" asp-for="MaxParticipants" class="form-control"/>
-            <span class="text-danger" id="MaxParticipantsError"></span>
         </div>
 
         <div class="form-group mt-3">
             <label class="form-label text-light">Bescrijving</label>
+            <span class="text-danger" asp-validation-for="Description"></span>
             <textarea asp-for="Description" class="form-control" rows="4"></textarea>
-            <span class="text-danger" id="DescriptionError"></span>
         </div>
 
         <button type="submit" class="btn btn-light col-12 mt-3">Opslaan</button>

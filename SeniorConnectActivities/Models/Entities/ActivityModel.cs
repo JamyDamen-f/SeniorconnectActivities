@@ -10,7 +10,7 @@ namespace SeniorConnectActivities.Models.Entities
         [Required(ErrorMessage = "Titel is vereist.")]
         public string Title { get; set; }
         [StringLength(200, ErrorMessage = "Beschrijving kan maar maximaal 200 karakters hebben.")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [Required(ErrorMessage = "Locatie is vereist.")]
         public string Location { get; set; }
         [Required(ErrorMessage = "Start datum en tijd is vereist.")]
@@ -22,8 +22,6 @@ namespace SeniorConnectActivities.Models.Entities
         public int MaxParticipants { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastUpdated { get; set; }
-        public string Url { get; set; }
-
-
+        public string? Url { get; set; }
     }
 }
