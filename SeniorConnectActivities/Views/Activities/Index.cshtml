@@ -24,8 +24,8 @@
                 <tr>
                     <td>@activity.Title</td>
                     <td>@activity.Location</td>
-                    <td>@activity.Start.ToString("dd/MM/yyyy HH:mm")</td>
-                    <td>@activity.End.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@activity.Start?.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@activity.End?.ToString("dd/MM/yyyy HH:mm")</td>
                     <td>
                         <a class="text-dark" asp-controller="Activities" asp-action="CreateEditEntity" asp-route-id="@activity.Id">Aanpassen</a> |
                         <a class="text-dark" asp-controller="Activities" asp-action="DetailsEntity" asp-route-id="@activity.Id">Details</a> |
