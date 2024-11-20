@@ -6,11 +6,7 @@ namespace SeniorConnectActivities.Models.Entities
     {
         public int Id { get; set; }
         public RolModel RolId { get; set; }
-        [Required(ErrorMessage = "Email is vereist.")]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required(ErrorMessage = "Password is vereist.")]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Salt { get; set; }
         public bool Active { get; set; }

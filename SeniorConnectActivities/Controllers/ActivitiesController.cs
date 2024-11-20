@@ -25,9 +25,6 @@ namespace SeniorConnectActivities.Controllers
         {
             try
             {
-                // Create a list of activities
-                List<ActivityModel> Activities = new List<ActivityModel>();
-
                 // Opens db connection
                 var connection = _dbConnection.GetConnection();
                 if (connection.State != ConnectionState.Open)
@@ -38,6 +35,9 @@ namespace SeniorConnectActivities.Controllers
                 // Sql command and execute the command
                 var command = new MySqlCommand("SELECT * FROM activity", connection);
                 var reader = await command.ExecuteReaderAsync();
+
+                // Create a list of activities
+                List<ActivityModel> Activities = new List<ActivityModel>();
 
                 // Fill the list with activities
                 while (await reader.ReadAsync())
@@ -263,7 +263,7 @@ namespace SeniorConnectActivities.Controllers
                 var reader = await command.ExecuteReaderAsync();
                 reader.ReadAsync();
 
-                // Fill the activity with the id from the list
+                // Fill the activity with the activity with a specific id
                 var activity = new ActivityModel();
                 activity.Title = reader.GetString(0);
                 activity.Description = reader.IsDBNull(1) ? null : reader.GetString(1);
