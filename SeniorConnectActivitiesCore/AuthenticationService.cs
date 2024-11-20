@@ -2,10 +2,13 @@
 {
     public class AuthenticationService
     {
-        public void Login()
+        public bool Login(string email, string password)
         {
             //TODO: Check of the login juist is van de user
 
+
+
+            return false;
         }
     }
 }
