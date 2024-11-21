@@ -1,4 +1,6 @@
-﻿namespace SeniorConnectActivities.Models.Entities
+﻿using SeniorConnectActivitiesShared.Models;
+
+namespace SeniorConnectActivities.Models.Entities
 {
 
     public class ActivityUserModel

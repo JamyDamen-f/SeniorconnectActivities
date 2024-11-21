@@ -1,22 +1,22 @@
 ﻿using MySql.Data.MySqlClient;
+using SeniorConnectActivitiesShared.Models;
 using System.Data;
 
 namespace SeniorConnectActivitiesCore
 {
     public class AuthenticationService
     {
-        public async Task<bool> Login(string formEmail, string email, string formPassword, string password)
+        public async Task<bool> Login(string formEmail, string formPassword, List<UserModel> users)
         {
-            //TODO: Check of the login juist is van de user
+            var matchingUser = users.FirstOrDefault(u => u.Email == formEmail && u.Password == formPassword);
 
-
-            if (formEmail != email || formPassword != password)
+            if (matchingUser != null)
             {
-                return false;
+                return true;
             }
             else
             {
-                return true;
+                return false;
             }
         }
 

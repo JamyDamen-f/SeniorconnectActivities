@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SeniorConnectActivities.Models.Entities
+namespace SeniorConnectActivitiesShared.Models
 {
     public class UserModel
     {
@@ -10,11 +10,12 @@ namespace SeniorConnectActivities.Models.Entities
         public string Password { get; set; }
         public string Salt { get; set; }
         public bool Active { get; set; }
-        public int GoogleId { get; set; }
-        public int FacebookId { get; set; }
+        public string GoogleId { get; set; }
+        public string FacebookId { get; set; }
         public string FirstName { get; set; }
-        public string Affix { get; set; }
+        public string MiddleName { get; set; }
         public string LastName { get; set; }
+        public string NameAffix { get; set; }
         public string Address { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
