@@ -138,6 +138,11 @@ namespace SeniorConnectActivities.Controllers
         }
 
 
+        /// <summary>
+        /// Get activiteit
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Activiteit if id is given</returns>
         [HttpGet]
         public async Task<IActionResult> CreateEditEntity(int? id)
         {

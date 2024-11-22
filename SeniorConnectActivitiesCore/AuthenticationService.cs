@@ -13,6 +13,13 @@ namespace SeniorConnectActivitiesCore
             _dbConnection = dbConnection;
         }
 
+
+        /// <summary>
+        /// Get all users and check if the given login match with a user in the list
+        /// </summary>
+        /// <param name="formEmail"></param>
+        /// <param name="formPassword"></param>
+        /// <returns>If login is true or false</returns>
         public async Task<bool> Login(string formEmail, string formPassword)
         {
             // Opens db connection
